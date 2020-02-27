@@ -15,7 +15,7 @@ except:
 
 import numpy as np
 import math
-import matplotlib.pyplot as plt
+
 
 color_list = ["#984ea3",
                 "#ff7f00",
@@ -203,6 +203,10 @@ if __name__ == '__main__':
     parser.add_argument("--plot", action='store_true', help="Add if you want to generate the plots")
 
     args = parser.parse_args()
+
+    if args.plot:
+        import matplotlib.pyplot as plt
+        print("Plotting turned on")
     
     if sys.version_info[0] < 3:
         data = pickle.load(open('cifar_2class_py2.p', 'rb'))
@@ -254,39 +258,6 @@ if __name__ == '__main__':
         100. * test_accuracy,
     ))
 
-    # l_max = [0.467,0.6595,0.7545,0.7755,0.6855,0.626]
-    # lr_list = [0.01,0.001,0.0001,0.00001,0.000001,0.0000001]
-
-    # plt.figure()
-    # plt.plot(np.arange(len(lr_list)), l_max, label="Best Test Accuracy", color=color_list[0]) 
-    # plt.title("Training Accuracy for different learning rates")
-    # plt.xticks(np.arange(len(lr_list)),lr_list)
-    # plt.xlabel("Learning Rate")
-    # plt.ylabel("Testing Accuracy")
-    # plt.legend()
-    # plt.savefig("lr_plot_best.png", dpi=100)
-
-    # b_max = [0.675,0.6685,0.6755,0.75,0.7775,0.813]
-    # b_list = [10,50,100,500,1000,5000]
-
-    # plt.figure()
-    # plt.plot(b_list, b_max, label="Best Test Accuracy", color=color_list[0]) 
-    # plt.title("Training Accuracy for different numbers of batches")
-    # plt.xlabel("Batches")
-    # plt.ylabel("Testing Accuracy")
-    # plt.legend()
-    # plt.savefig("b_plot_best.png", dpi=100)
-
-    # h_max = [0.7485,0.756,0.7695,0.7755,0.7795,0.7825]
-    # h_list = [5,10,20,40,80,160]
-
-    # plt.figure()
-    # plt.plot(h_list, h_max, label="Best Test Accuracy", color=color_list[0]) 
-    # plt.title("Training Accuracy for different numbers of hidden units")
-    # plt.xlabel("Hidden Units")
-    # plt.ylabel("Testing Accuracy")
-    # plt.legend()
-    # plt.savefig("h_plot_best.png", dpi=100)
 
     train_accuracies = []
     test_accuracies = []
@@ -397,7 +368,7 @@ if __name__ == '__main__':
                 
                 if test_accuracy > l_max[i]:
                     l_max[i] = test_accuracy
-            print(lr_list[i], ": ", l_max[i])
+            print(str(lr_list[i]) + ": " + str(l_max[i]))
             i+=1
         
         i=0
@@ -448,7 +419,7 @@ if __name__ == '__main__':
                 
                 if test_accuracy > b_max[i]:
                     b_max[i] = test_accuracy
-            print(b_list[i], ": ", b_max[i])
+            print(str(b_list[i]) + ": " + str(b_max[i]))
             i+=1
             
         i=0
@@ -500,7 +471,7 @@ if __name__ == '__main__':
                 # MAKE SURE TO COMPUTE train_loss, train_accuracy, test_loss, test_accuracy
                 if test_accuracy > h_max[i]:
                     h_max[i] = test_accuracy
-            print(h_list[i], ": ", h_max[i])
+            print(str(h_list[i]) + ": " + str(h_max[i]))
             i+=1
             
         i=0
